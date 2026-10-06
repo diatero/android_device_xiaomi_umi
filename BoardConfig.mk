@@ -26,3 +26,6 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Inherit from the proprietary version
 include vendor/xiaomi/umi/BoardConfigVendor.mk
+
+# Personal Diater private layer
+-include vendor/diater/devices/umi/BoardConfigDiater.mk

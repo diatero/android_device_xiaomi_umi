@@ -7,6 +7,11 @@
 # Fingerprint
 TARGET_HAS_UDFPS := true
 
+# Override the shared vendor WFD config before inheriting its copy entry.
+# Keep the original vendor blob config intact; this umi profile caps encoder/network load.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wfd/wfdconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wfdconfig.xml
+
 # Inherit from sm8250-common
 $(call inherit-product, device/xiaomi/sm8250-common/kona.mk)
 
@@ -30,7 +35,8 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,qdcm_calib_data_*.xml,$(LOCAL_PATH)/qdcm/,$(TARGET_COPY_OUT_VENDOR)/etc/)
+    $(call find-copy-subdir-files,qdcm_calib_data_*.xml,$(LOCAL_PATH)/qdcm/,$(TARGET_COPY_OUT_VENDOR)/etc/) \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 
 # Init
 $(call soong_config_set,xiaomi_kona,variant_lib,//$(LOCAL_PATH):libvariant_xiaomi_umi)
